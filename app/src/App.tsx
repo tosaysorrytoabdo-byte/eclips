@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DataProvider } from '@/hooks/useData';
+import { DataProvider, useData } from '@/hooks/useData';
 import Hero from '@/sections/Hero';
 import Ranks from '@/sections/Ranks';
 import Top10 from '@/sections/Top10';
@@ -15,19 +15,31 @@ function DiscordIcon() {
   );
 }
 
-function App() {
+function LoadingScreen() {
+  return (
+    <div style={{ position: 'fixed', inset: 0, background: '#03010a', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
+      <div style={{ textAlign: 'center' }}>
+        <div className="font-orbitron font-black tracking-widest" style={{ fontSize: '1.5rem', background: 'linear-gradient(135deg,#fff,#c084fc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '16px' }}>
+          ECLIPSE
+        </div>
+        <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg,#7c3aed,#c084fc)', margin: '0 auto', animation: 'pulse 1s infinite' }} />
+      </div>
+    </div>
+  );
+}
+
+function AppInner() {
   const [page, setPage] = useState<'home'|'admin'>('home');
+  const { loading } = useData();
+
+  if (loading) return <LoadingScreen />;
 
   if (page === 'admin') {
-    return (
-      <DataProvider>
-        <AdminPanel onClose={() => setPage('home')} />
-      </DataProvider>
-    );
+    return <AdminPanel onClose={() => setPage('home')} />;
   }
 
   return (
-    <DataProvider>
+    <>
       {/* NAV */}
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-16 border-b"
         style={{background:'rgba(3,1,10,.88)',backdropFilter:'blur(24px)',borderColor:'rgba(147,51,234,.18)'}}>
@@ -78,6 +90,14 @@ function App() {
       >
         ⚙
       </button>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <DataProvider>
+      <AppInner />
     </DataProvider>
   );
 }
