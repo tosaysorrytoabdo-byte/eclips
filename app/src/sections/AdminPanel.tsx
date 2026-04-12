@@ -137,7 +137,7 @@ export default function AdminPanel({ onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center p-4 overflow-y-auto" style={{ background: 'rgba(3,1,10,.97)' }}>
-      <div className="w-full max-w-3xl my-auto rounded-2xl overflow-hidden border" style={{ background: '#06030f', borderColor: 'rgba(147,51,234,.35)' }}>
+      <div className="w-full max-w-3xl my-auto rounded-2xl border" style={{ background: '#06030f', borderColor: 'rgba(147,51,234,.35)' }}>
 
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b" style={{ background: '#0a0618', borderColor: 'rgba(147,51,234,.2)' }}>
