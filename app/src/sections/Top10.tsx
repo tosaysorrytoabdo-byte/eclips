@@ -2,7 +2,6 @@ import { useData } from '@/hooks/useData';
 
 export default function Top10() {
   const { data } = useData();
-  const rankClass = ['n1','n2','n3'];
 
   return (
     <section id="top10" className="relative z-10 max-w-5xl mx-auto px-4 py-24">

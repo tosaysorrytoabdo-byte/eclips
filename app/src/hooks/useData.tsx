@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from 'react';
-import { doc, onSnapshot, setDoc, collection, getDocs, writeBatch } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc, collection, writeBatch } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
 
 export interface Member {

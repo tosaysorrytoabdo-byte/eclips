@@ -16,7 +16,6 @@ function DiscordIcon() {
 }
 
 function App() {
-  const [adminOpen, setAdminOpen] = useState(false);
   const [page, setPage] = useState<'home'|'admin'>('home');
 
   if (page === 'admin') {
@@ -70,7 +69,7 @@ function App() {
       <button
         onClick={() => {
           const p = prompt('🔐 كلمة المرور:');
-          if (p === 'seoul334') setPage('admin');
+          if (p === 'eclipse333') setPage('admin');
           else if (p !== null) alert('❌ خطأ في كلمة المرور');
         }}
         className="fixed bottom-5 left-5 w-10 h-10 flex items-center justify-center rounded-lg z-40 transition-all"

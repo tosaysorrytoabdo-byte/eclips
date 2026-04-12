@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { X, Plus, Trash2, Save } from 'lucide-react';
 import { useData, type Top10Entry } from '@/hooks/useData';
 
-const PASS = 'eclipse333';
 const RANKS_OPTIONS = ['درجة خاصة','الدرجة الأولى','الدرجة الثانية','الدرجة الثالثة','الدرجة الرابعة','الدرجة الخامسة'];
 
 interface Props { onClose: () => void; }
