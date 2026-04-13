@@ -37,10 +37,10 @@ export function DataProvider({ children }: { children: ReactNode }) {
     top10: defaultTop10,
     members: [],
   });
-  const [loading, setLoading] = useState(true);
+  // loading false من البداية — الموقع يشتغل فوراً
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Listen to settings
     const unsubSettings = onSnapshot(doc(db, 'settings', 'clan'), snap => {
       if (snap.exists()) {
         const d = snap.data();
@@ -52,14 +52,12 @@ export function DataProvider({ children }: { children: ReactNode }) {
       } else {
         setDoc(doc(db, 'settings', 'clan'), { clanName: 'Eclipse Jujutsu Academy', top10: defaultTop10 });
       }
-      setLoading(false);
-    });
+    }, () => { /* ignore errors */ });
 
-    // Listen to members
     const unsubMembers = onSnapshot(collection(db, 'members'), snap => {
       const members = snap.docs.map(d => ({ id: d.id, ...d.data() } as Member));
       setData(prev => ({ ...prev, members }));
-    });
+    }, () => { /* ignore errors */ });
 
     return () => { unsubSettings(); unsubMembers(); };
   }, []);

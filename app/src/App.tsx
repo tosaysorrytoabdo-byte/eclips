@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DataProvider, useData } from '@/hooks/useData';
+import { DataProvider } from '@/hooks/useData';
 import Hero from '@/sections/Hero';
 import Ranks from '@/sections/Ranks';
 import Top10 from '@/sections/Top10';
@@ -15,32 +15,19 @@ function DiscordIcon() {
   );
 }
 
-function LoadingScreen() {
-  return (
-    <div style={{ position: 'fixed', inset: 0, background: '#03010a', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
-      <div style={{ textAlign: 'center' }}>
-        <div className="font-orbitron font-black tracking-widest" style={{ fontSize: '1.5rem', background: 'linear-gradient(135deg,#fff,#c084fc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '16px' }}>
-          ECLIPSE
-        </div>
-        <div style={{ width: '40px', height: '2px', background: 'linear-gradient(90deg,#7c3aed,#c084fc)', margin: '0 auto', animation: 'pulse 1s infinite' }} />
-      </div>
-    </div>
-  );
-}
-
-function AppInner() {
+function App() {
   const [page, setPage] = useState<'home'|'admin'>('home');
-  const { loading } = useData();
-
-  if (loading) return <LoadingScreen />;
 
   if (page === 'admin') {
-    return <AdminPanel onClose={() => setPage('home')} />;
+    return (
+      <DataProvider>
+        <AdminPanel onClose={() => setPage('home')} />
+      </DataProvider>
+    );
   }
 
   return (
-    <>
-      {/* NAV */}
+    <DataProvider>
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 h-16 border-b"
         style={{background:'rgba(3,1,10,.88)',backdropFilter:'blur(24px)',borderColor:'rgba(147,51,234,.18)'}}>
         <div className="font-orbitron font-black tracking-widest" style={{fontSize:'1rem',background:'linear-gradient(135deg,#fff,#c084fc)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>
@@ -52,13 +39,12 @@ function AppInner() {
           ))}
         </ul>
         <a href="https://discord.gg/9D5dY7r4s" target="_blank" rel="noopener noreferrer"
-          className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold tracking-wide uppercase transition-all"
+          className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold tracking-wide uppercase"
           style={{background:'rgba(147,51,234,.1)',border:'1px solid rgba(147,51,234,.3)',color:'#f0ebff',textDecoration:'none'}}>
           <DiscordIcon /> Discord
         </a>
       </nav>
 
-      {/* MAIN */}
       <main>
         <Hero />
         <div style={{height:'1px',background:'linear-gradient(90deg,transparent,rgba(147,51,234,.3),transparent)'}} />
@@ -71,33 +57,21 @@ function AppInner() {
         <Join />
       </main>
 
-      {/* FOOTER */}
       <footer className="border-t text-center py-8 text-xs tracking-widest uppercase relative z-10" style={{borderColor:'rgba(147,51,234,.15)',color:'#4a4060'}}>
         Eclipse Jujutsu Academy &nbsp;·&nbsp; Roblox &nbsp;·&nbsp;
         <a href="https://discord.gg/9D5dY7r4s" target="_blank" rel="noopener noreferrer" style={{color:'#4a4060',textDecoration:'none'}}>Discord ↗</a>
       </footer>
 
-      {/* Admin FAB */}
       <button
         onClick={() => {
           const p = prompt('🔐 كلمة المرور:');
           if (p === 'eclipse333') setPage('admin');
           else if (p !== null) alert('❌ خطأ في كلمة المرور');
         }}
-        className="fixed bottom-5 left-5 w-10 h-10 flex items-center justify-center rounded-lg z-40 transition-all"
+        className="fixed bottom-5 left-5 w-10 h-10 flex items-center justify-center rounded-lg z-40"
         style={{background:'rgba(147,51,234,.06)',border:'1px solid rgba(147,51,234,.15)',color:'rgba(147,51,234,.25)',fontSize:'1rem'}}
         title="Admin"
-      >
-        ⚙
-      </button>
-    </>
-  );
-}
-
-function App() {
-  return (
-    <DataProvider>
-      <AppInner />
+      >⚙</button>
     </DataProvider>
   );
 }
