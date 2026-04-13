@@ -145,7 +145,6 @@ export default function AdminPanel({ onClose }: Props) {
             <button key={i} onClick={() => setTab(i)} style={{
               flex: 1, padding: '12px', fontSize: '11px', fontWeight: 'bold', letterSpacing: '2px', textTransform: 'uppercase',
               color: tab === i ? '#c084fc' : '#7c6f9a',
-              borderBottom: tab === i ? '2px solid #9333ea' : '2px solid transparent',
               background: 'none', border: 'none', borderBottom: tab === i ? '2px solid #9333ea' : '2px solid transparent',
               cursor: 'pointer', fontFamily: 'Cairo,sans-serif'
             }}>{t}</button>
